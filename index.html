@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAYNEX WEB RENTAL</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      background: linear-gradient(135deg,#05070d,#101d3b,#06101e);
+      min-height: 100vh;
+    }
+    header {
+      padding: 22px;
+      border-bottom: 1px solid #26395b;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    main {
+      max-width: 850px;
+      margin: auto;
+      padding: 55px 20px;
+      text-align: center;
+    }
+    h1 { font-size: clamp(30px,7vw,52px); }
+    p { color: #b7c9e8; line-height: 1.8; }
+    .panel {
+      margin-top: 30px;
+      padding: 25px;
+      border: 1px solid #2c5289;
+      border-radius: 18px;
+      background: #101a2dcc;
+    }
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border-radius: 9px;
+      font-size: 16px;
+    }
+    input {
+      background: #080f1e;
+      color: white;
+      border: 1px solid #344767;
+    }
+    button {
+      border: 0;
+      background: #1688ff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #message { overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <header>RAYNEX WEB RENTAL</header>
+  <main>
+    <h1>สร้างเว็บไซต์ของคุณเอง</h1>
+    <p>เริ่มต้นร้านออนไลน์ในสไตล์ของคุณ<br>
+    จัดการหน้าร้านได้จากที่เดียว</p>
+    <section class="panel">
+      <h2>ทดลองตั้งชื่อร้าน</h2>
+      <p>ขั้นนี้เป็นเพียงตัวอย่าง ยังไม่ได้สร้างเว็บลูกค้าจริง</p>
+      <input id="shop" maxlength="30"
+        placeholder="ตั้งชื่อร้าน เช่น myshop">
+      <button onclick="previewShop()">ทดลองสร้างร้าน</button>
+      <p id="message"></p>
+    </section>
+  </main>
+  <script>
+    function previewShop() {
+      const field = document.getElementById('shop');
+      const result = document.getElementById('message');
+      const name = field.value.trim().toLowerCase();
+
+      if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(name)) {
+        result.textContent =
+          'ใช้ a-z, 0-9 และขีดกลาง โดยห้ามขึ้นต้นหรือลงท้ายด้วยขีด';
+        return;
+      }
+      result.textContent =
+        'ชื่อร้านตัวอย่างของคุณ: ' + name +
+        ' — ขั้นต่อไปเราจะเชื่อมระบบสร้างเว็บไซต์จริง';
+    }
+  </script>
+</body>
+</html>
