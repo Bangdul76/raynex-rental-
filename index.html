@@ -1,92 +1,265 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RAYNEX WEB RENTAL</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: white;
-      background: linear-gradient(135deg,#05070d,#101d3b,#06101e);
-      min-height: 100vh;
-    }
-    header {
-      padding: 22px;
-      border-bottom: 1px solid #26395b;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
-    main {
-      max-width: 850px;
-      margin: auto;
-      padding: 55px 20px;
-      text-align: center;
-    }
-    h1 { font-size: clamp(30px,7vw,52px); }
-    p { color: #b7c9e8; line-height: 1.8; }
-    .panel {
-      margin-top: 30px;
-      padding: 25px;
-      border: 1px solid #2c5289;
-      border-radius: 18px;
-      background: #101a2dcc;
-    }
-    input, button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 12px;
-      border-radius: 9px;
-      font-size: 16px;
-    }
-    input {
-      background: #080f1e;
-      color: white;
-      border: 1px solid #344767;
-    }
-    button {
-      border: 0;
-      background: #1688ff;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    #message { overflow-wrap: anywhere; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RAYNEX STORE</title>
+<style>
+:root{--bg:#070b14;--panel:#0d1525;--line:#1c2c45;--blue:#168bff;--cyan:#53d0ff;--text:#eef5ff;--muted:#8fa4c1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans Thai",sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0;border-radius:9px;padding:11px 15px;font-weight:bold}
+.primary{background:linear-gradient(110deg,#0875ee,#45c8ff);color:white}
+.secondary{background:#15233a;border:1px solid #2b4567;color:white}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 5%;gap:10px;background:#080f1d;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.logo{font-size:20px;font-weight:900;letter-spacing:1px;white-space:nowrap}
+.logo span{color:var(--cyan)}
+.wrap{width:92%;max-width:1150px;margin:auto}
+.nav{display:flex;gap:7px;overflow-x:auto;padding:12px 4%;background:#0a1220;border-bottom:1px solid var(--line)}
+.nav button{white-space:nowrap;background:transparent;color:#9eb3d0}
+.nav button.active,.nav button:hover{background:#12335a;color:#6dd5ff}
+.hero{margin:22px auto 28px;padding:32px 25px;border:1px solid #214b79;border-radius:17px;background:radial-gradient(ellipse at 85% 10%,#16518a 0,transparent 45%),linear-gradient(120deg,#080d18,#102749);position:relative;overflow:hidden}
+.hero small{letter-spacing:3px;color:var(--cyan);font-weight:bold}
+.hero h1{font-size:clamp(32px,7vw,55px);margin:14px 0}
+.hero p{color:#bdcde2;line-height:1.8;max-width:540px}
+.hero:after{content:"R";position:absolute;right:5%;top:-45px;font-size:250px;font-weight:900;color:#64c8ff;opacity:.045;pointer-events:none}
+.page{display:none;padding:25px 0 45px}
+.page.active{display:block}
+h2{font-size:23px;margin:0 0 8px}
+.sub{font-size:13px;color:var(--muted);line-height:1.8}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0}
+.stat,.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:13px}
+.stat{padding:15px 10px}
+.stat strong{display:block;font-size:22px;color:var(--cyan);margin-top:7px}
+.stat span{font-size:12px;color:var(--muted)}
+.section{margin:25px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+.card{overflow:hidden}
+.art{height:115px;display:grid;place-items:center;font-size:38px;background:radial-gradient(circle at 50% 20%,#174b7e,#0b1629 75%)}
+.cardbody{padding:12px}
+.card h3{font-size:15px;margin:3px 0 8px}
+.price{font-size:18px;color:var(--cyan);font-weight:bold;margin:12px 0}
+.card button{width:100%}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+.chips button{background:#14243c;color:#bddcff;border:1px solid #294666}
+.chips button.active{background:#0875ee;color:white}
+.search{width:100%;padding:13px;background:#0b1628;color:white;border:1px solid #29415f;border-radius:9px;margin-top:16px}
+.panel{padding:17px;margin-top:15px}
+.panel h3{margin:0 0 12px}
+.field{display:block;margin:12px 0;color:#b6c9e2;font-size:13px}
+.field input,.field select{display:block;width:100%;margin-top:7px;padding:12px;border:1px solid #2a4261;border-radius:8px;background:#07101e;color:white}
+.row2{display:grid;grid-template-columns:1fr;gap:12px}
+.badge{display:inline-block;font-size:11px;padding:5px 8px;border-radius:20px;background:#123c35;color:#83f1cb}
+.notice{border:1px solid #6d5320;background:#241e10;color:#f4dba0;padding:12px;border-radius:9px;font-size:13px;line-height:1.7;margin-top:15px}
+.listitem{padding:13px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:center}
+footer{border-top:1px solid var(--line);text-align:center;padding:28px 10px;color:#7e94b3;font-size:13px}
+.hidden{display:none!important}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.art{height:150px}.row2{grid-template-columns:1fr 1fr}.nav{justify-content:center}.hero{padding:48px}.stats{grid-template-columns:repeat(3,1fr)}}
+</style>
 </head>
 <body>
-  <header>RAYNEX WEB RENTAL</header>
-  <main>
-    <h1>สร้างเว็บไซต์ของคุณเอง</h1>
-    <p>เริ่มต้นร้านออนไลน์ในสไตล์ของคุณ<br>
-    จัดการหน้าร้านได้จากที่เดียว</p>
-    <section class="panel">
-      <h2>ทดลองตั้งชื่อร้าน</h2>
-      <p>ขั้นนี้เป็นเพียงตัวอย่าง ยังไม่ได้สร้างเว็บลูกค้าจริง</p>
-      <input id="shop" maxlength="30"
-        placeholder="ตั้งชื่อร้าน เช่น myshop">
-      <button onclick="previewShop()">ทดลองสร้างร้าน</button>
-      <p id="message"></p>
-    </section>
-  </main>
-  <script>
-    function previewShop() {
-      const field = document.getElementById('shop');
-      const result = document.getElementById('message');
-      const name = field.value.trim().toLowerCase();
+<header>
+ <div class="logo">RAYNEX <span>STORE</span></div>
+ <button class="secondary" onclick="showPage('cart',null)">🛒 <span id="cartCount">0</span></button>
+</header>
 
-      if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(name)) {
-        result.textContent =
-          'ใช้ a-z, 0-9 และขีดกลาง โดยห้ามขึ้นต้นหรือลงท้ายด้วยขีด';
-        return;
-      }
-      result.textContent =
-        'ชื่อร้านตัวอย่างของคุณ: ' + name +
-        ' — ขั้นต่อไปเราจะเชื่อมระบบสร้างเว็บไซต์จริง';
-    }
-  </script>
+<nav class="nav" id="nav">
+ <button class="active" onclick="showPage('home',this)">หน้าแรก</button>
+ <button onclick="showPage('shop',this)">ร้านค้า</button>
+ <button onclick="showPage('topup',this)">เติมเงิน</button>
+ <button onclick="showPage('agent',this)">ตัวแทน</button>
+ <button onclick="showPage('addons',this)">Add-on</button>
+ <button onclick="showPage('webhook',this)">Webhook</button>
+ <button onclick="showPage('api',this)">Product API</button>
+ <button onclick="showPage('cart',this)">ตะกร้า</button>
+</nav>
+
+<main class="wrap">
+<section class="page active" id="home">
+ <div class="hero">
+  <small>WELCOME TO</small>
+  <h1>RAYNEX <span style="color:#53d0ff">STORE</span></h1>
+  <p>YOUR DIGITAL GAME STORE<br>เลือกชมสินค้าดิจิทัลและบริการสำหรับเกมได้ในที่เดียว ดีไซน์ใหม่ในธีมดำ–น้ำเงิน</p>
+  <button class="primary" onclick="showPage('shop',null)">เลือกซื้อสินค้า ↗</button>
+ </div>
+ <div class="stats">
+  <div class="stat"><span>หมวดหมู่สินค้า</span><strong>04</strong></div>
+  <div class="stat"><span>ระบบร้านค้า</span><strong>ONLINE</strong></div>
+  <div class="stat"><span>ธีมร้าน</span><strong>RAYNEX</strong></div>
+ </div>
+ <div class="section">
+  <h2>หมวดหมู่สินค้า</h2><div class="sub">เลือกหมวดหมู่ที่ต้องการ</div>
+  <div class="grid">
+   <div class="card"><div class="art">📱</div><div class="cardbody"><h3>ANDROID</h3><button class="secondary" onclick="openCategory('ANDROID')">ดูสินค้า</button></div></div>
+   <div class="card"><div class="art">⚡</div><div class="cardbody"><h3>IOS & AD</h3><button class="secondary" onclick="openCategory('IOS & AD')">ดูสินค้า</button></div></div>
+   <div class="card"><div class="art">🎮</div><div class="cardbody"><h3>ROV</h3><button class="secondary" onclick="openCategory('ROV')">ดูสินค้า</button></div></div>
+   <div class="card"><div class="art">💎</div><div class="cardbody"><h3>สินค้าอื่นๆ</h3><button class="secondary" onclick="openCategory('อื่นๆ')">ดูสินค้า</button></div></div>
+  </div>
+ </div>
+ <div class="section"><h2>สินค้าแนะนำ</h2><div class="sub">ตัวอย่างการแสดงสินค้า ปรับเปลี่ยนได้ภายหลัง</div><div class="grid" id="homeProducts"></div></div>
+ <div class="panel"><h2>วิธีสั่งซื้อ</h2><p class="sub">01 เลือกสินค้า → 02 ตรวจสอบรายการ → 03 ติดต่อร้านเพื่อดำเนินการสั่งซื้อ</p><button class="primary" onclick="showPage('shop',null)">เริ่มเลือกสินค้า</button></div>
+</section>
+
+<section class="page" id="shop">
+ <h2>ร้านค้าทั้งหมด</h2><div class="sub">ค้นหาสินค้าหรือเลือกหมวดหมู่</div>
+ <input class="search" id="search" placeholder="🔎 ค้นหาสินค้า..." oninput="renderProducts()">
+ <div class="chips" id="chips">
+  <button class="active" onclick="setCategory('ทั้งหมด',this)">ทั้งหมด</button>
+  <button onclick="setCategory('ANDROID',this)">ANDROID</button>
+  <button onclick="setCategory('IOS & AD',this)">IOS & AD</button>
+  <button onclick="setCategory('ROV',this)">ROV</button>
+  <button onclick="setCategory('อื่นๆ',this)">อื่นๆ</button>
+ </div>
+ <div class="grid" id="products"></div>
+</section>
+
+<section class="page" id="cart">
+ <h2>ตะกร้าสินค้า 🛒</h2><div class="sub">ตรวจสอบรายการสินค้าก่อนติดต่อร้าน</div>
+ <div class="panel" id="cartItems"></div>
+ <p id="cartTotal" class="price">ยอดรวม: 0 บาท</p>
+ <button class="primary" onclick="checkout()">ดำเนินการสั่งซื้อ</button>
+ <button class="secondary" onclick="clearCart()">ล้างตะกร้า</button>
+ <div class="notice">นี่เป็นหน้าตัวอย่าง ยังไม่มีการชำระเงินจริงหรือสร้างคำสั่งซื้อบนเซิร์ฟเวอร์</div>
+</section>
+
+<section class="page" id="topup">
+ <h2>เติมเงิน</h2><div class="sub">หน้าสำหรับต่อระบบเติมเงินของร้าน</div>
+ <div class="panel">
+  <h3>เติมเงินเข้าบัญชี</h3>
+  <label class="field">รหัสสมาชิก<input placeholder="กรอกรหัสสมาชิก"></label>
+  <label class="field">จำนวนเงิน (บาท)<input type="number" min="1" placeholder="ระบุจำนวนเงิน"></label>
+  <button class="primary" onclick="alert('หน้านี้เป็น UI ตัวอย่าง ยังไม่ได้เชื่อมระบบรับชำระเงินจริง')">ดำเนินการเติมเงิน</button>
+ </div>
+ <div class="notice">ระบบรับชำระและเพิ่มยอดเงินจริงต้องตรวจสอบการชำระเงินผ่านหลังบ้านก่อนเสมอ</div>
+</section>
+
+<section class="page" id="agent">
+ <h2>ระบบตัวแทนจำหน่าย</h2><div class="sub">หน้าจัดการตัวแทนและระดับราคาสำหรับ RAYNEX STORE</div>
+ <div class="grid">
+  <div class="panel"><span class="badge">LEVEL 1</span><h3 style="margin-top:12px">STARTER</h3><p class="sub">ตัวแทนเริ่มต้น</p></div>
+  <div class="panel"><span class="badge">LEVEL 2</span><h3 style="margin-top:12px">PRO AGENT</h3><p class="sub">ตัวแทนระดับโปร</p></div>
+  <div class="panel"><span class="badge">LEVEL 3</span><h3 style="margin-top:12px">VIP AGENT</h3><p class="sub">ตัวแทนระดับพรีเมียม</p></div>
+ </div>
+ <div class="panel"><h3>สมัครเป็นตัวแทน</h3>
+  <label class="field">ชื่อร้าน/ชื่อผู้สมัคร<input placeholder="กรอกชื่อ"></label>
+  <label class="field">ช่องทางติดต่อ<input placeholder="LINE หรือ Discord"></label>
+  <button class="primary" onclick="alert('แบบฟอร์มตัวอย่าง ยังไม่มีการบันทึกข้อมูล')">ส่งใบสมัคร</button>
+ </div>
+ <div class="notice">ระดับตัวแทน ราคา ค่าคอมมิชชัน และสิทธิ์ต่างๆ ต้องตั้งค่าจากหลังบ้านจริงก่อนใช้งาน</div>
+</section>
+
+<section class="page" id="addons">
+ <h2>ระบบ Add-on</h2><div class="sub">หน้ารวมส่วนเสริมสำหรับขยายความสามารถของร้าน</div>
+ <div class="panel">
+  <div class="listitem"><div><b>จัดการแบนเนอร์</b><div class="sub">ตั้งภาพและข้อความหน้าร้าน</div></div><button class="secondary" onclick="showPage('banner',null)">เปิด</button></div>
+  <div class="listitem"><div><b>ระบบตัวแทน</b><div class="sub">ระดับ ราคา และค่าคอมมิชชัน</div></div><button class="secondary" onclick="showPage('agent',null)">เปิด</button></div>
+  <div class="listitem"><div><b>Product API</b><div class="sub">ดึงสินค้าจากผู้ให้บริการ</div></div><button class="secondary" onclick="showPage('api',null)">ตั้งค่า</button></div>
+  <div class="listitem"><div><b>Webhook</b><div class="sub">แจ้งเตือนและรับสถานะ</div></div><button class="secondary" onclick="showPage('webhook',null)">ตั้งค่า</button></div>
+ </div>
+ <div class="notice">หน้านี้เป็น UI ของ Add-on ยังไม่ได้ติดตั้งหรือเปิดใช้งานโมดูลจริง</div>
+</section>
+
+<section class="page" id="banner">
+ <h2>จัดการแบนเนอร์หน้าร้าน</h2><div class="sub">ตัวอย่างหน้าตั้งค่าแบนเนอร์</div>
+ <div class="panel">
+  <label class="field">หัวข้อแบนเนอร์<input id="bannerTitle" value="RAYNEX STORE"></label>
+  <label class="field">ข้อความรอง<input id="bannerDesc" value="YOUR DIGITAL GAME STORE"></label>
+  <label class="field">ลิงก์ภาพแบนเนอร์<input id="bannerImage" placeholder="https://..."></label>
+  <button class="primary" onclick="saveBanner()">แสดงตัวอย่างบนหน้าร้าน</button>
+ </div>
+ <div class="notice">ตัวอย่างนี้เปลี่ยนข้อความบนหน้าเว็บได้ชั่วคราว ยังไม่ได้อัปโหลดหรือบันทึกภาพถาวร</div>
+</section>
+
+<section class="page" id="api">
+ <h2>Product API</h2><div class="sub">เชื่อมต่อผู้ให้บริการสินค้าภายนอก</div>
+ <div class="panel">
+  <h3>ตั้งค่าผู้ให้บริการ</h3>
+  <label class="field">ชื่อผู้ให้บริการ<input placeholder="ชื่อแผง API"></label>
+  <label class="field">API Endpoint<input placeholder="https://provider.example/api"></label>
+  <label class="field">API Key<input type="password" placeholder="ตั้งค่าจริงในระบบหลังบ้านเท่านั้น" disabled></label>
+  <label class="field">สถานะการเชื่อมต่อ<select><option>ยังไม่ได้เชื่อมต่อ</option><option>รอตั้งค่าหลังบ้าน</option></select></label>
+  <button class="primary" onclick="alert('ต้องสร้าง Backend และเก็บ API Key ใน Environment Variables ของ Vercel ก่อน')">ตรวจสอบการเชื่อมต่อ</button>
+ </div>
+ <div class="panel"><h3>การซิงก์สินค้า</h3><p class="sub">ดึงชื่อสินค้า ราคา สต็อก และสถานะจากผู้ให้บริการเมื่อเชื่อม API จริงแล้ว</p><button class="secondary" onclick="alert('ยังไม่ได้เชื่อมต่อ Product API จริง')">ซิงก์สินค้า</button></div>
+ <div class="notice">อย่าใส่ API Key ใน HTML หรือส่งขึ้น GitHub เพราะผู้เข้าชมเว็บสามารถดูโค้ดได้</div>
+</section>
+
+<section class="page" id="webhook">
+ <h2>Webhook Center</h2><div class="sub">จัดการการแจ้งเตือนและสถานะออเดอร์</div>
+ <div class="panel">
+  <h3>Discord Notification</h3>
+  <label class="field">สถานะการแจ้งเตือน<select><option>ยังไม่ได้เชื่อมต่อ</option><option>รอตั้งค่าใน Backend</option></select></label>
+  <label class="field">Discord Webhook URL<input type="password" placeholder="ตั้งค่าใน Vercel Environment Variables เท่านั้น" disabled></label>
+  <button class="secondary" onclick="alert('ต้องตั้งค่า Discord Webhook URL ใน Vercel ฝั่งเซิร์ฟเวอร์')">ทดสอบการแจ้งเตือน</button>
+ </div>
+ <div class="panel">
+  <h3>รับสถานะจาก Product API</h3>
+  <label class="field">Webhook Endpoint<input value="/api/provider-webhook" readonly></label>
+  <label class="field">การตรวจสอบความปลอดภัย<select><option>ต้องตั้งค่า Secret/Signature ฝั่ง Backend</option></select></label>
+  <p class="sub">รับเหตุการณ์คำสั่งซื้อและอัปเดตสถานะเมื่อเชื่อมต่อกับผู้ให้บริการจริง</p>
+ </div>
+ <div class="notice">หน้าจอนี้ยังไม่รับ Webhook จริง ต้องมี API endpoint ฝั่งเซิร์ฟเวอร์ ตรวจสอบ Secret/Signature และป้องกันคำขอซ้ำ</div>
+</section>
+</main>
+
+<footer>© 2026 RAYNEX STORE · DIGITAL GAMING SHOP</footer>
+
+<script>
+const data=[
+{id:1,name:"โปรแกรมช่วยเล่น ANDROID",cat:"ANDROID",price:99,icon:"📱"},
+{id:2,name:"โปรแกรมช่วยเล่น IOS & AD",cat:"IOS & AD",price:129,icon:"⚡"},
+{id:3,name:"โปรแกรมช่วยเล่น ROV",cat:"ROV",price:99,icon:"🎮"},
+{id:4,name:"สินค้าเกมดิจิทัล",cat:"อื่นๆ",price:59,icon:"💎"}
+];
+let category="ทั้งหมด",cart=[];
+function showPage(id,btn){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ const page=document.getElementById(id);
+ if(page)page.classList.add("active");
+ document.querySelectorAll("#nav button").forEach(b=>b.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
+ if(id==="cart")renderCart();
+}
+function renderCards(list,target){
+ document.getElementById(target).innerHTML=list.length?list.map(p=>`
+ <article class="card"><div class="art">${p.icon}</div><div class="cardbody">
+ <div class="sub">${p.cat}</div><h3>${p.name}</h3><div class="price">${p.price} บาท</div>
+ <button class="primary" onclick="addCart(${p.id})">เพิ่มลงตะกร้า</button>
+ </div></article>`).join(""):"<p class='sub'>ไม่พบสินค้า</p>";
+}
+function renderProducts(){
+ const q=(document.getElementById("search")?.value||"").toLowerCase();
+ renderCards(data.filter(p=>(category==="ทั้งหมด"||p.cat===category)&&(p.name+" "+p.cat).toLowerCase().includes(q)),"products");
+}
+function setCategory(c,b){
+ category=c;
+ document.querySelectorAll("#chips button").forEach(x=>x.classList.remove("active"));
+ b.classList.add("active");renderProducts();
+}
+function openCategory(c){
+ showPage("shop",null);category=c;
+ document.querySelectorAll("#chips button").forEach(b=>b.classList.toggle("active",b.textContent===c));
+ renderProducts();
+}
+function addCart(id){cart.push(data.find(p=>p.id===id));document.getElementById("cartCount").textContent=cart.length;alert("เพิ่มสินค้าลงตะกร้าแล้ว")}
+function renderCart(){
+ const el=document.getElementById("cartItems");
+ el.innerHTML=cart.length?cart.map((p,i)=>`<div class="listitem"><span>${i+1}. ${p.name}</span><b>${p.price} บาท</b></div>`).join(""):"<p class='sub'>ยังไม่มีสินค้าในตะกร้า</p>";
+ document.getElementById("cartTotal").textContent="ยอดรวม: "+cart.reduce((s,p)=>s+p.price,0)+" บาท";
+}
+function clearCart(){cart=[];document.getElementById("cartCount").textContent="0";renderCart()}
+function checkout(){if(!cart.length){alert("กรุณาเลือกสินค้าก่อน");return}alert("นี่เป็น UI ตัวอย่าง ยังไม่มีระบบสร้างออเดอร์จริง กรุณาเชื่อม Backend ก่อนเปิดขาย")}
+function saveBanner(){
+ const title=document.getElementById("bannerTitle").value;
+ const desc=document.getElementById("bannerDesc").value;
+ document.querySelector(".hero h1").textContent=title;
+ document.querySelector(".hero p").textContent=desc;
+ alert("เปลี่ยนตัวอย่างแบนเนอร์แล้ว (ยังไม่บันทึกถาวร)");
+}
+renderCards(data,"homeProducts");renderProducts();renderCart();
+</script>
 </body>
-</html>
+    </html>
+    
